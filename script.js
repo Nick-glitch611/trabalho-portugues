@@ -12,7 +12,7 @@ start.addEventListener("click", () => {
   document.getElementById("quiz").style.display="block"
 });
 
-const resposta = document.querySelectorAll(".resposta");
+const resposta = document.querySelectorAll("quiz");
 
 let atual = 1
 
