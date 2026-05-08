@@ -1,9 +1,5 @@
-const start = document.getElementById("início");
+const start = document.getElementById("iniciar");
 
 start.addEventListener("click", () => {
-
-  alert("clicou");
-
-  document.getElementById("quiz").style.display = "block";
-
+  document.getElementById("quiz").style.display="block"
 });
