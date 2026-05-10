@@ -72,6 +72,8 @@ start.addEventListener("click", () => {
   }
 
   quiz.style.display = "block";
+  const galeria = document.getElementById("galeria").style.display = "none"
+  const duvidas = document.getElementById("duvidas").style.display = "none"
   document.getElementById("p1").style.display = "block";
 
   iniciarTimer();
