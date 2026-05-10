@@ -14,7 +14,11 @@ start.addEventListener("click", () => {
     return;
   }
 
+  // mostra quiz
   quiz.style.display = "block";
+
+  // mostra a primeira pergunta
+  document.getElementById("p1").style.display = "block";
 });
 
 // clique nas respostas
@@ -57,4 +61,4 @@ quiz.addEventListener("click", (event) => {
       `;
     }
   }
-});
+})
