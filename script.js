@@ -9,6 +9,8 @@ start.addEventListener("click", () => {
     return;
   }
 
+const nome = document.getElementBy("nome").value
+
   document.getElementById("quiz").style.display = "block";
 });
 
