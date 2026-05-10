@@ -61,7 +61,6 @@ function passarPergunta() {
   }
 }
 
-// botão iniciar
 start.addEventListener("click", () => {
 
   const nome = document.getElementById("nome").value;
@@ -71,9 +70,15 @@ start.addEventListener("click", () => {
     return;
   }
 
+  // esconder conteúdo inicial
+  document.getElementById("galeria").style.display = "none";
+  document.getElementById("resumo").style.display = "none";
+  document.getElementById("duvidas").style.display = "none";
+  document.getElementById("nome").style.display = "none";
+  document.getElementById("iniciar").style.display = "none";
+
+  // mostrar quiz
   quiz.style.display = "block";
-  const galeria = document.getElementById("galeria").style.display = "none"
-  const duvidas = document.getElementById("duvidas").style.display = "none"
   document.getElementById("p1").style.display = "block";
 
   iniciarTimer();
