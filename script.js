@@ -1,4 +1,8 @@
 const start = document.getElementById("iniciar");
+const quiz = document.getElementById("quiz");
+
+let atual = 1;
+let pontos = 0;
 
 start.addEventListener("click", () => {
 
@@ -9,19 +13,19 @@ start.addEventListener("click", () => {
     return;
   }
 
-const nome = document.getElementBy("nome").value
-
-  document.getElementById("quiz").style.display = "block";
+  quiz.style.display = "block";
 });
 
-const resposta = document.getElementById("quiz");
-
-let atual = 1;
-
-resposta.addEventListener("click", (event) => {
+quiz.addEventListener("click", (event) => {
 
   if (event.target.tagName === "BUTTON") {
-    
+
+    // verifica se acertou
+    if (event.target.dataset.correta === "true") {
+      pontos++;
+    }
+
+    // esconde pergunta atual
     document.getElementById("p" + atual).style.display = "none";
 
     atual++;
@@ -29,9 +33,23 @@ resposta.addEventListener("click", (event) => {
     const proxima = document.getElementById("p" + atual);
 
     if (proxima) {
+
+      // mostra próxima pergunta
       proxima.style.display = "block";
+
     } else {
-      alert("Fim do quiz!");
+
+      // fim do quiz
+      const nome = document.getElementById("nome").value;
+
+      quiz.style.display = "none";
+
+      document.body.innerHTML += `
+        <div id="resultado">
+          <h2>${nome}, você terminou o quiz!</h2>
+          <p>Você fez ${pontos} pontos de 17.</p>
+        </div>
+      `;
     }
   }
 });
