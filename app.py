@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify, send_from_directory
 import sqlite3
 import os
-#banco de dados e server
+
 app = Flask(__name__)
 
+# Configuração do caminho do banco de dados
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB = os.path.join(BASE_DIR, "ranking.db")
 
 def init_db():
+    """Inicializa o banco de dados e cria a tabela se não existir."""
     conn = sqlite3.connect(DB)
     c = conn.cursor()
     c.execute("""
@@ -19,7 +21,6 @@ def init_db():
     """)
     conn.commit()
     conn.close()
-
 init_db()
 
 @app.route("/")
@@ -33,6 +34,7 @@ def static_files(filename):
 @app.route("/salvar", methods=["POST"])
 def salvar():
     dados = request.get_json()
+    
     nome = dados.get("nome", "").strip()
     pontuacao = dados.get("pontuacao", 0)
 
@@ -41,7 +43,9 @@ def salvar():
 
     conn = sqlite3.connect(DB)
     c = conn.cursor()
+    
     c.execute("INSERT INTO ranking (nome, pontuacao) VALUES (?, ?)", (nome, pontuacao))
+    
     conn.commit()
     conn.close()
 
@@ -51,11 +55,14 @@ def salvar():
 def get_ranking():
     conn = sqlite3.connect(DB)
     c = conn.cursor()
+
     c.execute("SELECT nome, pontuacao FROM ranking ORDER BY pontuacao DESC LIMIT 20")
     rows = c.fetchall()
+
     conn.close()
 
-    resultado = [{"nome": r[0], "pontuacao": r[1]} for r in rows]
-    return jsonify(resultado)
+    ranking = [{"nome": r[0], "pontuacao": r[1]} for r in rows]
+    return jsonify(ranking)
 
-app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
