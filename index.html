@@ -8,12 +8,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
+    gap: 15px;
 }
 
 .galeria img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     cursor: pointer;
     transition: transform 0.3s;
@@ -23,6 +23,17 @@
 .galeria img:hover {
     transform: scale(1.05);
     border: 3px ridge white;
+}
+            
+@media (max-width: 768px) {
+    .galeria img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .galeria {
+        gap: 8px;
+    }
 }
             .secao {
                 background-color: #f5efe6;
