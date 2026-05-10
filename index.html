@@ -5,23 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             .galeria {
-                display: flex;
-                gap: 10px;
-                justify-content: center;
-            }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
 
-            .galeria img
-            {
-               cursor: pointer;
-            }
-            
-            .galeria img {
-                transition: transform 0.3s;
-            }
-            .galeria img:hover {
-                transform: scale(1.1);
-                border: 6px ridge rgb(255, 255, 255);
-            }
+.galeria img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 10px;
+}
+
+.galeria img:hover {
+    transform: scale(1.05);
+    border: 3px ridge white;
+}
             .secao {
                 background-color: #f5efe6;
                 padding: 40px;
