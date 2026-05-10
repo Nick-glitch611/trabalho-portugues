@@ -1,8 +1,65 @@
 const start = document.getElementById("iniciar");
 const quiz = document.getElementById("quiz");
+const timerHTML = document.getElementById("timer");
 
 let atual = 1;
 let pontos = 0;
+let tempo = 30;
+let intervalo;
+
+// função do timer
+function iniciarTimer() {
+
+  tempo = 30;
+  timerHTML.innerText = `Tempo: ${tempo}s`;
+
+  intervalo = setInterval(() => {
+
+    tempo--;
+
+    timerHTML.innerText = `Tempo: ${tempo}s`;
+
+    // acabou o tempo
+    if (tempo === 0) {
+
+      clearInterval(intervalo);
+
+      passarPergunta();
+    }
+
+  }, 1000);
+}
+
+// função para trocar de pergunta
+function passarPergunta() {
+
+  document.getElementById("p" + atual).style.display = "none";
+
+  atual++;
+
+  const proxima = document.getElementById("p" + atual);
+
+  if (proxima) {
+
+    proxima.style.display = "block";
+
+    iniciarTimer();
+
+  } else {
+
+    const nome = document.getElementById("nome").value;
+
+    quiz.style.display = "none";
+    timerHTML.style.display = "none";
+
+    document.body.innerHTML += `
+      <div id="resultado">
+        <h2>${nome}, você terminou o quiz!</h2>
+        <p>Você fez ${pontos} de 17 pontos.</p>
+      </div>
+    `;
+  }
+}
 
 // botão iniciar
 start.addEventListener("click", () => {
@@ -14,51 +71,24 @@ start.addEventListener("click", () => {
     return;
   }
 
-  // mostra quiz
   quiz.style.display = "block";
-
-  // mostra a primeira pergunta
   document.getElementById("p1").style.display = "block";
+
+  iniciarTimer();
 });
 
 // clique nas respostas
 quiz.addEventListener("click", (event) => {
 
-  // verifica se clicou em um botão
   if (event.target.tagName === "BUTTON") {
 
-    // verifica se acertou
+    clearInterval(intervalo);
+
+    // acertou?
     if (event.target.dataset.correta === "true") {
       pontos++;
     }
 
-    // esconde pergunta atual
-    document.getElementById("p" + atual).style.display = "none";
-
-    atual++;
-
-    // próxima pergunta
-    const proxima = document.getElementById("p" + atual);
-
-    if (proxima) {
-
-      proxima.style.display = "block";
-
-    } else {
-
-      // pega o nome
-      const nome = document.getElementById("nome").value;
-
-      // esconde quiz
-      quiz.style.display = "none";
-
-      // cria resultado no HTML
-      document.body.innerHTML += `
-        <div id="resultado">
-          <h2>${nome}, você terminou o quiz!</h2>
-          <p>Você fez ${pontos} de 17 pontos.</p>
-        </div>
-      `;
-    }
+    passarPergunta();
   }
-})
+});
