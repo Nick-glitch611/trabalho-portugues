@@ -99,3 +99,27 @@ quiz.addEventListener("click", (event) => {
     passarPergunta();
   }
 });
+function carregarRanking() {
+  fetch("/ranking")
+    .then(r => r.json())
+    .then(dados => {
+      const tbody = document.getElementById("ranking-body");
+      if (!tbody) return;
+      if (dados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888;">Nenhuma pontuação ainda.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = dados.map((item, i) => {
+        const medalha = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : (i + 1);
+        return `<tr style="border-bottom:1px solid #d9cfc5;">
+          <td style="padding:10px 8px; color:#3a2a1a;">${medalha}</td>
+          <td style="padding:10px 8px; color:#3a2a1a;">${item.nome}</td>
+          <td style="padding:10px 8px; text-align:right; color:#3a2a1a; font-weight:bold;">${item.pontuacao}/17</td>
+        </tr>`;
+      }).join("");
+    })
+    .catch(() => {
+      const tbody = document.getElementById("ranking-body");
+      if (tbody) tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:red;">Erro ao carregar ranking.</td></tr>';
+    });
+}
