@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 import sqlite3
 import os
-
+#banco de dados e server
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
