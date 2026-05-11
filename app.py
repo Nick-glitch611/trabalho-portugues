@@ -1,20 +1,23 @@
 from flask import Flask, request, jsonify, send_from_directory
 import sqlite3
 import os
-#banco de dados e server
+
 app = Flask(__name__)
 
+# Configuração do caminho do banco de dados
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB = os.path.join(BASE_DIR, "ranking.db")
 
 def init_db():
+    """Cria a tabela se não existir. Sem a restrição UNIQUE no nome."""
     conn = sqlite3.connect(DB)
     c = conn.cursor()
     c.execute("""
         CREATE TABLE IF NOT EXISTS ranking (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
-            pontuacao INTEGER NOT NULL
+            pontuacao INTEGER NOT NULL,
+            tempo INTEGER NOT NULL
         )
     """)
     conn.commit()
@@ -35,27 +38,37 @@ def salvar():
     dados = request.get_json()
     nome = dados.get("nome", "").strip()
     pontuacao = dados.get("pontuacao", 0)
+    tempo = dados.get("tempo", 0)
 
     if not nome:
         return jsonify({"erro": "Nome inválido"}), 400
 
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    c.execute("INSERT INTO ranking (nome, pontuacao) VALUES (?, ?)", (nome, pontuacao))
+    
+    c.execute(
+        "INSERT INTO ranking (nome, pontuacao, tempo) VALUES (?, ?, ?)",
+        (nome, pontuacao, tempo)
+    )
+    
     conn.commit()
     conn.close()
-
     return jsonify({"ok": True})
 
 @app.route("/ranking")
 def get_ranking():
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    c.execute("SELECT nome, pontuacao FROM ranking ORDER BY pontuacao DESC LIMIT 20")
+    c.execute("""
+        SELECT nome, pontuacao, tempo 
+        FROM ranking 
+        ORDER BY pontuacao DESC, tempo ASC 
+        LIMIT 42
+    """)
     rows = c.fetchall()
     conn.close()
 
-    resultado = [{"nome": r[0], "pontuacao": r[1]} for r in rows]
-    return jsonify(resultado)
+    return jsonify([{"nome": r[0], "pontuacao": r[1], "tempo": r[2]} for r in rows])
 
-app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
