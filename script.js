@@ -25,7 +25,7 @@ window.onload = function () {
   }
 
   function iniciarTimerPergunta() {
-    tempoPergunta = 30;
+    tempoPergunta = 45;
     timerHTML.innerText = `Tempo: ${tempoPergunta}s`;
 
     intervaloPergunta = setInterval(() => {
