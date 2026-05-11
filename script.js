@@ -1,143 +1,74 @@
-const start = document.getElementById("iniciar");
-const quiz = document.getElementById("quiz");
-const timerHTML = document.getElementById("timer");
+from flask import Flask, request, jsonify, send_from_directory
+import sqlite3
+import os
 
-let atual = 1;
-let pontos = 0;
-let tempo = 30;
-let intervalo;
+app = Flask(__name__)
 
-function iniciarTimer() {
-    tempo = 30;
-    timerHTML.innerText = `Tempo: ${tempo}s`;
+# Configuração do caminho do banco de dados
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB = os.path.join(BASE_DIR, "ranking.db")
 
-    intervalo = setInterval(() => {
-        tempo--;
-        timerHTML.innerText = `Tempo: ${tempo}s`;
+def init_db():
+    """Cria a tabela se não existir. Sem a restrição UNIQUE no nome."""
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS ranking (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            pontuacao INTEGER NOT NULL,
+            tempo INTEGER NOT NULL
+        )
+    """)
+    conn.commit()
+    conn.close()
 
-        if (tempo === 0) {
-            clearInterval(intervalo);
-            passarPergunta();
-        }
-    }, 1000);
-}
+init_db()
 
-function passarPergunta() {
-    const perguntaAtual = document.getElementById("p" + atual);
-    if (perguntaAtual) perguntaAtual.style.display = "none";
+@app.route("/")
+def home():
+    return send_from_directory(BASE_DIR, "index.html")
 
-    atual++;
+@app.route("/<path:filename>")
+def static_files(filename):
+    return send_from_directory(BASE_DIR, filename)
 
-    const proxima = document.getElementById("p" + atual);
+@app.route("/salvar", methods=["POST"])
+def salvar():
+    dados = request.get_json()
+    nome = dados.get("nome", "").strip()
+    pontuacao = dados.get("pontuacao", 0)
+    tempo = dados.get("tempo", 0)
 
-    if (proxima) {
-        proxima.style.display = "block";
-        iniciarTimer();
-    } else {
-        finalizarQuiz();
-    }
-}
+    if not nome:
+        return jsonify({"erro": "Nome inválido"}), 400
 
-function finalizarQuiz() {
-    const nome = document.getElementById("nome").value;
-    quiz.style.display = "none";
-    timerHTML.style.display = "none";
-    fetch("/salvar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nome: nome,
-            pontuacao: pontos
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            document.body.innerHTML = `
-                <div id="resultado">
-                    <h2 style="color: #f5c842;">${nome}, você terminou o quiz!</h2>
-                    <p style="color: #aaaaaa;">Você fez <strong>${pontos}</strong> de 17 pontos.</p>
-                </div>
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    
+    c.execute(
+        "INSERT INTO ranking (nome, pontuacao, tempo) VALUES (?, ?, ?)",
+        (nome, pontuacao, tempo)
+    )
+    
+    conn.commit()
+    conn.close()
+    return jsonify({"ok": True})
 
-                <div id="ranking" style="background-color: #f5efe6; padding: 20px; margin: 40px auto; max-width: 500px; border-radius: 10px;">
-                    <h2 style="color: #3a2a1a; margin-bottom: 20px;">🏆 Ranking Top 20</h2>
-                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                        <thead>
-                            <tr style="border-bottom: 2px solid #3a2a1a;">
-                                <th style="padding: 10px;">Pos.</th>
-                                <th style="padding: 10px;">Nome</th>
-                                <th style="padding: 10px; text-align: right;">Pontos</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ranking-body">
-                            </tbody>
-                    </table>
-                    <br>
-                    <button onclick="window.location.reload()" style="padding: 10px 20px; cursor: pointer; background: #3a2a1a; color: white; border: none; border-radius: 5px;">Jogar Novamente</button>
-                </div>
-            `;
-            carregarRanking();
-        }
-    })
-    .catch(error => {
-        console.error("Erro ao salvar pontuação:", error);
-        alert("Erro ao conectar com o servidor.");
-    });
-}
-start.addEventListener("click", () => {
-    const nome = document.getElementById("nome").value;
+@app.route("/ranking")
+def get_ranking():
+    conn = sqlite3.connect(DB)
+    c = conn.cursor()
+    c.execute("""
+        SELECT nome, pontuacao, tempo 
+        FROM ranking 
+        ORDER BY pontuacao DESC, tempo ASC 
+        LIMIT 42
+    """)
+    rows = c.fetchall()
+    conn.close()
 
-    if (nome.trim() === "") {
-        alert("Digite seu nome");
-        return;
-    }
-    document.getElementById("galeria").style.display = "none";
-    document.getElementById("secao").style.display = "none";
-    document.getElementById("duvidas").style.display = "none";
-    document.getElementById("nome").style.display = "none";
-    document.getElementById("iniciar").style.display = "none";
-    quiz.style.display = "block";
-    document.getElementById("p1").style.display = "block";
+    return jsonify([{"nome": r[0], "pontuacao": r[1], "tempo": r[2]} for r in rows])
 
-    iniciarTimer();
-});
-quiz.addEventListener("click", (event) => {
-    if (event.target.tagName === "BUTTON") {
-        clearInterval(intervalo);
-        if (event.target.dataset.correta === "true") {
-            pontos++;
-        }
-
-        passarPergunta();
-    }
-});
-
-function carregarRanking() {
-    fetch("/ranking")
-        .then(r => r.json())
-        .then(dados => {
-            const tbody = document.getElementById("ranking-body");
-            if (!tbody) return;
-
-            if (dados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#888; padding: 20px;">Nenhuma pontuação ainda.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = dados.map((item, i) => {
-                const medalha = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : (i + 1);
-                return `
-                <tr style="border-bottom: 1px solid #d9cfc5;">
-                    <td style="padding: 10px; color: #3a2a1a;">${medalha}</td>
-                    <td style="padding: 10px; color: #3a2a1a;">${item.nome}</td>
-                    <td style="padding: 10px; text-align: right; color: #3a2a1a; font-weight: bold;">${item.pontuacao}/17</td>
-                </tr>`;
-            }).join("");
-        })
-        .catch(err => {
-            console.error("Erro ao carregar ranking:", err);
-            const tbody = document.getElementById("ranking-body");
-            if (tbody) tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:red;">Erro ao carregar ranking.</td></tr>';
-        });
-}
+if __name__ == "__main__":
+    app.run(debug=True)
