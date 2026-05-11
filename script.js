@@ -7,7 +7,7 @@ window.onload = function () {
 
   let atual = 1;
   let pontos = 0;
-  let tempoPergunta = 30;
+  let tempoPergunta = 45;
   let intervaloPergunta;
 
   let tempoTotal = 0;
