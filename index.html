@@ -1,480 +1,246 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
+        
         <title>Quiz- A Metamorfose</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="/imgs/images.png" type="image/png">
-        <style>
-            .galeria {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-}
-
-.galeria img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s;
-    border-radius: 10px;
-}
-
-.galeria img:hover {
-    transform: scale(1.05);
-    border: 3px ridge white;
-}
-            
-@media (max-width: 768px) {
-    .galeria img {
-        width: 90px;
-        height: 90px;
-    }
-
-    .galeria {
-        gap: 8px;
-    }
-}
-            .secao {
-                background-color: #f5efe6;
-                padding: 40px;
-                margin-top: 40px;
-            }
-    
-            .secao h2 {
-                color: #3a2a1a;
-            } 
-    
-            body {
-                background-color: #1a1a1a;
-                font-family: 'Playfair Display', serif;
-                padding:15px;
-                text-align: center;
-            }
-    
-            h1 {
-                color: #f5c842;
-            }
-    
-            p {
-                color: #aaaaaa;
-            }
-    
-            h2 {
-                color: #f5c842
-            }
-    
-            a {
-                color:#f5c842
-            }
-            
-             .duvidas {
-                background-color: #f5efe6;
-                padding: 15px;
-                margin-top: 40px;
-            }
-    
-            .duvidas h2 {
-                color: #3a2a1a;
-            } 
-    
-            .quiz {
-                display: none;
-            }
-
-            .p1 {
-                display: none;
-            }
-
-            .p2 {
-                display:none;
-            }
-
-            .p3 {
-                display:none;
-            }
-
-            .p4 {
-                display:none;
-            }
-
-            .p5 {
-                display:none;
-            }
-
-            .p6 {
-                display:none;
-            }
-
-            .p7 {
-                display:none;
-            }
-
-            .p8 {
-                display:none;
-            }
-
-            .p9 {
-                display:none;
-            }
-
-            .p10 {
-                display:none;
-            }
-
-            .p11 {
-                display:none;
-            }
-
-            .p12 {
-                display:none;
-            }
-
-            .p13 {
-                display:none;
-            }
-
-            .p14 {
-                display:none;
-            }
-
-            .p15{
-                display:none;
-            }
-
-            .p16 {
-                display:none;
-            }
-
-            .p17 {
-                display:none;
-            }
-
-/* o medo de isso dar errado, Jesus, está na suas mãos meu pai*/
-#timer {
-    display: inline-block;
-    background: #2a2200;
-    border: 1px solid #5a4800;
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 14px;
-    color: #f5c842;
-    font-weight: 500;
-    margin-bottom: 16px;
-}
- 
-/* Acho que esse bagulho tá certo, vai no q dá ai */
-.quiz {
-    max-width: 680px;
-    margin: 0 auto;
-}
- 
-
-.p1, .p2, .p3, .p4, .p5, .p6, .p7, .p8,
-.p9, .p10, .p11, .p12, .p13, .p14, .p15,
-.p16, .p17 {
-    background: #242424;
-    border: 0.5px solid #333;
-    border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 16px;
-}
- 
-
-.p1 p, .p2 p, .p3 p, .p4 p,
-.p5 p, .p6 p, .p7 p, .p8 p,
-.p9 p, .p10 p, .p11 p, .p12 p,
-.p13 p, .p14 p, .p15 p, .p16 p,
-.p17 p {
-    color: #e8e0d0;
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 20px;
-}
- 
-
-.p1 button, .p2 button, .p3 button, .p4 button,
-.p5 button, .p6 button, .p7 button, .p8 button,
-.p9 button, .p10 button, .p11 button, .p12 button,
-.p13 button, .p14 button, .p15 button, .p16 button,
-.p17 button {
-    display: block;
-    width: 100%;
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 14px 18px;
-    color: #cccccc;
-    font-size: 14px;
-    font-family: 'Playfair Display', serif;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, transform 0.1s;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
- 
-.p1 button:last-child, .p2 button:last-child, .p3 button:last-child,
-.p4 button:last-child, .p5 button:last-child, .p6 button:last-child,
-.p7 button:last-child, .p8 button:last-child, .p9 button:last-child,
-.p10 button:last-child, .p11 button:last-child, .p12 button:last-child,
-.p13 button:last-child, .p14 button:last-child, .p15 button:last-child,
-.p16 button:last-child, .p17 button:last-child {
-    margin-bottom: 0;
-}
- 
-.p1 button:hover, .p2 button:hover, .p3 button:hover, .p4 button:hover,
-.p5 button:hover, .p6 button:hover, .p7 button:hover, .p8 button:hover,
-.p9 button:hover, .p10 button:hover, .p11 button:hover, .p12 button:hover,
-.p13 button:hover, .p14 button:hover, .p15 button:hover, .p16 button:hover,
-.p17 button:hover {
-    background: #2a2a2a;
-    border-color: rgba(245, 200, 66, 0.4);
-    color: #e8e0d0;
-}
- 
-.p1 button:active, .p2 button:active, .p3 button:active, .p4 button:active,
-.p5 button:active, .p6 button:active, .p7 button:active, .p8 button:active,
-.p9 button:active, .p10 button:active, .p11 button:active, .p12 button:active,
-.p13 button:active, .p14 button:active, .p15 button:active, .p16 button:active,
-.p17 button:active {
-    transform: scale(0.99);
-}
- 
-/* Botão iniciar (demorou mais que o css de cima :d ) */
-#iniciar {
-    background: #f5c842;
-    color: #1a1100;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 28px;
-    font-size: 15px;
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    margin-top: 8px;
-}
- 
-#iniciar:hover { background: #e0b530; }
-#iniciar:active { transform: scale(0.98); }
- 
-
-#nome {
-    background: #1e1e1e;
-    border: 1px solid #444;
-    border-radius: 8px;
-    padding: 12px 16px;
-    color: #e8e0d0;
-    font-size: 15px;
-    font-family: 'Playfair Display', serif;
-    width: 260px;
-    margin-right: 10px;
-    outline: none;
-    transition: border-color 0.2s;
-}
- 
-#nome:focus { border-color: #f5c842; }
-#nome::placeholder { color: #666; }
- 
-
-@media (max-width: 768px) {
-    .p1 button, .p2 button, .p3 button, .p4 button,
-    .p5 button, .p6 button, .p7 button, .p8 button,
-    .p9 button, .p10 button, .p11 button, .p12 button,
-    .p13 button, .p14 button, .p15 button, .p16 button,
-    .p17 button {
-        font-size: 13px;
-        padding: 12px 14px;
-    }
- 
-    #nome {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-}
-
-/* decidi deixar encostado no code pra eu não me embaralhar com o outro css, mas acho que deu certo!!!*/
-        </style>
+        <link rel="stylesheet" href="style.css">
+        
     </head>
+    
     <body>
     
         <h1>A METAMORFOSE</h1>
+        
         <div id ="galeria" class="galeria">
+            
             <img src="/imgs/familia.jpg" alt="Família">
             <img src="/imgs/barata.jpg" alt="Barata">
             <img src="/imgs/metamorfose.jpg" alt="Gregor">
             <img src="/imgs/metamorfo.jpg" alt="Gregor">
             <img src="/imgs/transformacao.jpg" alt="Transformação">
+            
         </div>
+        
         <div id="secao" class="secao">
+            
             <h2>Resumo</h2>
             <p>O livro conta a história de um homem que acorda transformado de maneira inexplicável e precisa lidar com as mudanças em sua vida e na relação com sua família. O livro aborda temas sensíveis e a forma como as pessoas são tratadas pela sociedade.</p>
+       
         </div>
+        
         <div id="duvidas" class="duvidas">
+            
             <h2>O que é um quiz?</h2>
             <p>Um quiz é um gênero textual interativo baseado em perguntas e respostas, criado para testar conhecimentos, opiniões ou habilidades sobre determinado assunto. Ele pode ser usado tanto para entretenimento quanto para aprendizagem. Como gênero textual, o quiz possui linguagem objetiva, perguntas curtas e organização em sequência, com o objetivo de envolver o participante e verificar seu desempenho ou conhecimento sobre um tema.</p>
+        
         </div>
+        
         <br>
-        <br>
+        
         <input type="text" id="nome" placeholder="Digite seu nome"></input>
+        
         <br>
+
         <button id="iniciar">Iniciar o quiz!</button>
+        
         <div class="quiz" id="quiz"> <!--aqui vai ficar o quiz, coloquei o div pra poder editar no JavaScript e nao aparecer antes da pessoa clicar em iniciar-->
+            
             <p id="timer">Tempo: 45s</p>
+            
             <div class="p1" id="p1">
-    <p>1. Na história, quem foi a pessoa que foi à casa de Gregor, no primeiro capítulo, nas primeiras páginas? E qual foi o motivo da sua vinda?</p>
-    <button>A) O chefe do Gregor, que veio conversar com a família dele sobre a sua falta no trabalho, querendo saber se ele ficou doente.</button>
-    <button>B) O chefe do Gregor, que veio conversar com a família dele, para falar sobre o nível de desempenho dele no trabalho.</button>
-    <button data-correta="true">C) O chefe do Gregor, que veio para sua casa, para saber o motivo da falta, já que ele não confiava em seus funcionários.</button>
-    <button>D) O chefe de Gregor, que veio conversar com a família e com ele para informá-lo sobre a sua demissão.</button>
-    <button>E) Nenhuma das alternativas está correta.</button>
-</div>
+                
+                <p>1. Na história, quem foi a pessoa que foi à casa de Gregor, no primeiro capítulo, nas primeiras páginas? E qual foi o motivo da sua vinda?</p>
+                <button>A) O chefe do Gregor, que veio conversar com a família dele sobre a sua falta no trabalho, querendo saber se ele ficou doente.</button>
+                <button>B) O chefe do Gregor, que veio conversar com a família dele, para falar sobre o nível de desempenho dele no trabalho.</button>
+                <button data-correta="true">C) O chefe do Gregor, que veio para sua casa, para saber o motivo da falta, já que ele não confiava em seus funcionários.</button>
+                <button>D) O chefe de Gregor, que veio conversar com a família e com ele para informá-lo sobre a sua demissão.</button>
+                <button>E) Nenhuma das alternativas está correta.</button>
+                
+            </div>
 
-<div class="p2" id="p2">
-    <p>2. Qual é o tipo de linguagem predominante no livro A Metamorfose?</p>
-    <button data-correta="true">A) Linguagem formal.</button>
-    <button>B) Linguagem informal.</button>
-    <button>C) Linguagem científica.</button>
-    <button>D) Linguagem regionalista.</button>
-    <button>E) Linguagem poética.</button>
-</div>
+            <div class="p2" id="p2">
+                
+                <p>2. Qual é o tipo de linguagem predominante no livro A Metamorfose?</p>
+                <button data-correta="true">A) Linguagem formal.</button>
+                <button>B) Linguagem informal.</button>
+                <button>C) Linguagem científica.</button>
+                <button>D) Linguagem regionalista.</button>
+                <button>E) Linguagem poética.</button>
+                
+            </div>
 
-<div class="p3" id="p3">
-    <p>3. Todo discurso busca transmitir uma ideia ou visão de mundo. O trecho abaixo apresenta qual tipo de discurso?<br><br>“Que trabalho tão cansativo escolhi! Viajar, dia sim, dia não.”</p>
-    <button>A) Discurso religioso.</button>
-    <button data-correta="true">B) Discurso trabalhista/social.</button>
-    <button>C) Discurso humorístico.</button>
-    <button>D) Discurso romântico.</button>
-    <button>E) Discurso científico.</button>
-</div>
+            <div class="p3" id="p3">
+                
+                <p>3. Todo discurso busca transmitir uma ideia ou visão de mundo. O trecho abaixo apresenta qual tipo de discurso?<br><br>“Que trabalho tão cansativo escolhi! Viajar, dia sim, dia não.”</p>
+                <button>A) Discurso religioso.</button>
+                <button data-correta="true">B) Discurso trabalhista/social.</button>
+                <button>C) Discurso humorístico.</button>
+                <button>D) Discurso romântico.</button>
+                <button>E) Discurso científico.</button>
+                
+            </div>
 
-<div class="p4" id="p4">
-    <p>4. Qual foi a principal causa da morte de Gregor Samsa ao final do livro A Metamorfose?</p>
-    <button data-correta="true">A) Desnutrição severa.</button>
-    <button>B) Queimado pela própria família.</button>
-    <button>C) Impacto na cabeça.</button>
-    <button>D) Sufocado.</button>
-    <button>E) Esfaqueado.</button>
-</div>
+            <div class="p4" id="p4">
+                
+                <p>4. Qual foi a principal causa da morte de Gregor Samsa ao final do livro A Metamorfose?</p>
+                <button data-correta="true">A) Desnutrição severa.</button>
+                <button>B) Queimado pela própria família.</button>
+                <button>C) Impacto na cabeça.</button>
+                <button>D) Sufocado.</button>
+                <button>E) Esfaqueado.</button>
+                
+            </div>
 
-<div class="p5" id="p5">
-    <p>5. Após a metamorfose de Gregor Samsa, a família não pôde mais depender dele como a única fonte de renda da casa. Qual das alternativas abaixo representa essa mudança?</p>
-    <button data-correta="true">A) O pai voltou a trabalhar, a mãe passou a fazer costuras e Grete conseguiu um emprego.</button>
-    <button>B) A família passou a viver apenas das economias de Gregor.</button>
-    <button>C) Gregor continuou sustentando a casa normalmente.</button>
-    <button>D) A família recebeu ajuda financeira do chefe de Gregor.</button>
-    <button>E) A família decidiu vender a casa e mudar de cidade.</button>
-</div>
+            <div class="p5" id="p5">
+                
+                <p>5. Após a metamorfose de Gregor Samsa, a família não pôde mais depender dele como a única fonte de renda da casa. Qual das alternativas abaixo representa essa mudança?</p>
+                <button data-correta="true">A) O pai voltou a trabalhar, a mãe passou a fazer costuras e Grete conseguiu um emprego.</button>
+                <button>B) A família passou a viver apenas das economias de Gregor.</button>
+                <button>C) Gregor continuou sustentando a casa normalmente.</button>
+                <button>D) A família recebeu ajuda financeira do chefe de Gregor.</button>
+                <button>E) A família decidiu vender a casa e mudar de cidade.</button>
+                
+            </div>
+            
             <div class="p6" id="p6">
-    <p>6. Durante a obra "A Metamorfose" de Franz Kafka, Gregor Samsa após a sua metamorfose passa a se adaptar gradualmente ao seu novo corpo. Qual das seguintes situações abaixo melhor demonstra essa adaptação?</p>
-    <button>A) Gregor tenta conversar normalmente com a sua família.</button>
-    <button>B) Gregor consegue se levantar da cama.</button>
-    <button data-correta="true">C) Gregor sente prazer em rastejar pelas paredes e pelo teto.</button>
-    <button>D) Gregor tenta voltar ao trabalho mesmo após a metamorfose.</button>
-    <button>E) Gregor passa a evitar completamente sair de seu quarto.</button>
-</div>
+                
+                <p>6. Durante a obra "A Metamorfose" de Franz Kafka, Gregor Samsa após a sua metamorfose passa a se adaptar gradualmente ao seu novo corpo. Qual das seguintes situações abaixo melhor demonstra essa adaptação?</p>
+                <button>A) Gregor tenta conversar normalmente com a sua família.</button>
+                <button>B) Gregor consegue se levantar da cama.</button>
+                <button data-correta="true">C) Gregor sente prazer em rastejar pelas paredes e pelo teto.</button>
+                <button>D) Gregor tenta voltar ao trabalho mesmo após a metamorfose.</button>
+                <button>E) Gregor passa a evitar completamente sair de seu quarto.</button>
+                
+            </div>
 
-<div class="p7" id="p7">
-    <p>7. Ao decorrer do livro "A Metamorfose", Gregor Samsa deixa de ser tratado como um membro de sua família. Qual das situações abaixo melhor descreve esse fato?</p>
-    <button>A) A preocupação da mãe com a saúde dele.</button>
-    <button>B) A tentativa da irmã de alimentá-lo.</button>
-    <button data-correta="true">C) O momento em que a família passa a ignorar a sua presença.</button>
-    <button>D) O fato de Gregor trabalhar como caixeiro viajante.</button>
-    <button>E) O desejo de Gregor em voltar à sua rotina normal.</button>
-</div>
+            <div class="p7" id="p7">
+                
+                <p>7. Ao decorrer do livro "A Metamorfose", Gregor Samsa deixa de ser tratado como um membro de sua família. Qual das situações abaixo melhor descreve esse fato?</p>
+                <button>A) A preocupação da mãe com a saúde dele.</button>
+                <button>B) A tentativa da irmã de alimentá-lo.</button>
+                <button data-correta="true">C) O momento em que a família passa a ignorar a sua presença.</button>
+                <button>D) O fato de Gregor trabalhar como caixeiro viajante.</button>
+                <button>E) O desejo de Gregor em voltar à sua rotina normal.</button>
+                
+            </div>
 
-<div class="p8" id="p8">
-    <p>8. O livro A Metamorfose faz um paralelo com diversos temas da realidade humana. Entre eles, o abandono. Qual trecho abaixo melhor representa esse tema?</p>
-    <button>A) “Que vida sossegada a minha família tem levado!”</button>
-    <button data-correta="true">B) “Precisava deixar-se estar e, usando de paciência, auxiliar a família a suportar os incômodos.”</button>
-    <button>C) “A visão das paredes nuas deprimia-a.”</button>
-    <button>D) “Gregor sentia-se oprimido.”</button>
-    <button>E) "Os pingos da chuva batiam na janela."</button>
-</div>
+            <div class="p8" id="p8">
+                
+                <p>8. O livro A Metamorfose faz um paralelo com diversos temas da realidade humana. Entre eles, o abandono. Qual trecho abaixo melhor representa esse tema?</p>
+                <button>A) “Que vida sossegada a minha família tem levado!”</button>
+                <button data-correta="true">B) “Precisava deixar-se estar e, usando de paciência, auxiliar a família a suportar os incômodos.”</button>
+                <button>C) “A visão das paredes nuas deprimia-a.”</button>
+                <button>D) “Gregor sentia-se oprimido.”</button>
+                <button>E) "Os pingos da chuva batiam na janela."</button>
+                
+            </div>
 
-<div class="p9" id="p9">
-    <p>9. Qual era a profissão de Gregor Samsa e por que ele estava preso e ao mesmo tempo obcecado pelo trabalho? Trazendo isso para a realidade, o que isto representa?</p>
-    <button>A) Gregor era médico e trabalhava por paixão, representando a realização pessoal através da profissão.</button>
-    <button data-correta="true">B) Gregor era vendedor viajante e se sentia preso ao trabalho por causa das dívidas da família, representando a exploração e a pressão do trabalho na sociedade.</button>
-    <button>C) Gregor era professor e estava obcecado pelo trabalho e estava preso por causa de sua família que o obrigava a ficar nesta profissão.</button>
-    <button>D) Gregor era empresário e trabalhava excessivamente para conquistar poder e riqueza individual.</button>
-    <button>E) Gregor era artista e via no trabalho uma forma de escapar dos problemas familiares.</button>
-</div>
+            <div class="p9" id="p9">
+                
+                <p>9. Qual era a profissão de Gregor Samsa e por que ele estava preso e ao mesmo tempo obcecado pelo trabalho? Trazendo isso para a realidade, o que isto representa?</p>
+                <button>A) Gregor era médico e trabalhava por paixão, representando a realização pessoal através da profissão.</button>
+                <button data-correta="true">B) Gregor era vendedor viajante e se sentia preso ao trabalho por causa das dívidas da família, representando a exploração e a pressão do trabalho na sociedade.</button>
+                <button>C) Gregor era professor e estava obcecado pelo trabalho e estava preso por causa de sua família que o obrigava a ficar nesta profissão.</button>
+                <button>D) Gregor era empresário e trabalhava excessivamente para conquistar poder e riqueza individual.</button>
+                <button>E) Gregor era artista e via no trabalho uma forma de escapar dos problemas familiares.</button>
+                
+            </div>
 
-<div class="p10" id="p10">
-    <p>10. Quando Gregor acorda, percebe que se transformou em um inseto. Qual a sua primeira preocupação? O que isso simboliza na nossa estrutura social?</p>
-    <button data-correta="true">A) Ele se preocupa em não atrasar no trabalho. Essa é uma das críticas que Franz Kafka fez, mostrando que muitas vezes o trabalho é valorizado acima do bem-estar humano.</button>
-    <button>B) Ele se preocupa em não atrasar para o trabalho. Essa é a única crítica do autor Franz Grillparzer.</button>
-    <button>C) Ele se preocupa em não atrasar para o trabalho, mas essa crítica não se perpetua atualmente.</button>
-    <button>D) Ele preocupa-se apenas porque o trabalho é fundamental no livro.</button>
-    <button>E) Nenhuma das alternativas.</button>
-</div> 
+            <div class="p10" id="p10">
+                
+                <p>10. Quando Gregor acorda, percebe que se transformou em um inseto. Qual a sua primeira preocupação? O que isso simboliza na nossa estrutura social?</p>
+                <button data-correta="true">A) Ele se preocupa em não atrasar no trabalho. Essa é uma das críticas que Franz Kafka fez, mostrando que muitas vezes o trabalho é valorizado acima do bem-estar humano.</button>
+                <button>B) Ele se preocupa em não atrasar para o trabalho. Essa é a única crítica do autor Franz Grillparzer.</button>
+                <button>C) Ele se preocupa em não atrasar para o trabalho, mas essa crítica não se perpetua atualmente.</button>
+                <button>D) Ele preocupa-se apenas porque o trabalho é fundamental no livro.</button>
+                <button>E) Nenhuma das alternativas.</button>
+                
+            </div> 
+            
             <div class="p11" id="p11">
-    <p>11. De que maneira o afeto demonstrado por Grete Samsa por Gregor Samsa se transforma ao longo da narrativa, e o que essa mudança revela sobre as relações familiares e o valor que as pessoas passam a ter?</p>
-    <button>A) Grete permanece ao lado de Gregor até o fim, mostrando que o amor familiar é incondicional.</button>
-    <button>B) Grete passa a admirar Gregor ainda mais após a transformação, percebendo sua importância para a família.</button>
-    <button data-correta="true">C) Grete inicialmente cuida de Gregor com compaixão, mas depois o rejeita, revelando que o valor das pessoas passa a ser ligado à utilidade.</button>
-    <button>D) Grete ignora Gregor desde o começo, demonstrando falta de afeto familiar desde antes da metamorfose.</button>
-    <button>E) Grete decide abandonar a família junto com Gregor, mostrando que ambos eram incompreendidos.</button>
-</div>
+                
+                <p>11. De que maneira o afeto demonstrado por Grete Samsa por Gregor Samsa se transforma ao longo da narrativa, e o que essa mudança revela sobre as relações familiares e o valor que as pessoas passam a ter?</p>
+                <button>A) Grete permanece ao lado de Gregor até o fim, mostrando que o amor familiar é incondicional.</button>
+                <button>B) Grete passa a admirar Gregor ainda mais após a transformação, percebendo sua importância para a família.</button>
+                <button data-correta="true">C) Grete inicialmente cuida de Gregor com compaixão, mas depois o rejeita, revelando que o valor das pessoas passa a ser ligado à utilidade.</button>
+                <button>D) Grete ignora Gregor desde o começo, demonstrando falta de afeto familiar desde antes da metamorfose.</button>
+                <button>E) Grete decide abandonar a família junto com Gregor, mostrando que ambos eram incompreendidos.</button>
+                
+            </div>
 
-<div class="p12" id="p12">
-    <p>12. O que aconteceu com Gregor Samsa quando sua família passou a aceitar que ele não poderia mais ser útil, e como essa mudança de comportamento revela a crítica social presente?</p>
-    <button>A) Gregor passou a ser tratado com mais carinho, pois sua família percebeu que ele precisava de apoio.</button>
-    <button data-correta="true">B) Gregor foi ignorado e rejeitado pela família, o que revela uma crítica social à valorização apenas por sua utilidade econômica.</button>
-    <button>C) Gregor decidiu sair de casa para não atrapalhar a família, demonstrando independência.</button>
-    <button>D) Gregor voltou a ser respeitado pela família depois de provar que ainda tinha como ajudar mesmo sem ser financeiramente.</button>
-    <button>E) Nenhuma das alternativas.</button>
-</div>
+            <div class="p12" id="p12">
+                
+                <p>12. O que aconteceu com Gregor Samsa quando sua família passou a aceitar que ele não poderia mais ser útil, e como essa mudança de comportamento revela a crítica social presente?</p>
+                <button>A) Gregor passou a ser tratado com mais carinho, pois sua família percebeu que ele precisava de apoio.</button>
+                <button data-correta="true">B) Gregor foi ignorado e rejeitado pela família, o que revela uma crítica social à valorização apenas por sua utilidade econômica.</button>
+                <button>C) Gregor decidiu sair de casa para não atrapalhar a família, demonstrando independência.</button>
+                <button>D) Gregor voltou a ser respeitado pela família depois de provar que ainda tinha como ajudar mesmo sem ser financeiramente.</button>
+                <button>E) Nenhuma das alternativas.</button>
+                
+            </div>
 
-<div class="p13" id="p13">
-    <p>13. Como a reação do genitor de Gregor ajuda a compreender os conflitos existentes dentro da família Samsa e quais foram as mentiras que ele fez para se beneficiar de Gregor?</p>
-    <button>A) Ele nunca mentiu, o pai de Gregor sempre foi honesto com a família e trabalhou para sustentar todos após a transformação do filho.</button>
-    <button>B) O pai de Gregor apoiou o filho durante toda a narrativa, mostrando uma relação familiar saudável e sem conflitos.</button>
-    <button data-correta="true">C) A reação agressiva do pai revela os conflitos e interesses dentro da família, além de mostrar que ele escondia dinheiro e dependia do trabalho de Gregor para viver confortavelmente.</button>
-    <button>D) O pai de Gregor abandonou a família após a metamorfose, deixando Grete responsável pelas despesas da casa.</button>
-    <button>E) O pai de Gregor fingia estar mal fisicamente para chamar atenção da família e comprou um iate.</button>
-</div>
+            <div class="p13" id="p13">
+                
+                <p>13. Como a reação do genitor de Gregor ajuda a compreender os conflitos existentes dentro da família Samsa e quais foram as mentiras que ele fez para se beneficiar de Gregor?</p>
+                <button>A) Ele nunca mentiu, o pai de Gregor sempre foi honesto com a família e trabalhou para sustentar todos após a transformação do filho.</button>
+                <button>B) O pai de Gregor apoiou o filho durante toda a narrativa, mostrando uma relação familiar saudável e sem conflitos.</button>
+                <button data-correta="true">C) A reação agressiva do pai revela os conflitos e interesses dentro da família, além de mostrar que ele escondia dinheiro e dependia do trabalho de Gregor para viver confortavelmente.</button>
+                <button>D) O pai de Gregor abandonou a família após a metamorfose, deixando Grete responsável pelas despesas da casa.</button>
+                <button>E) O pai de Gregor fingia estar mal fisicamente para chamar atenção da família e comprou um iate.</button>
+                
+            </div>
 
-<div class="p14" id="p14">
-    <p>14. Para nós, qual o significado da cena em que os móveis do quarto de Gregor começam a ser retirados?</p>
-    <button>A) Representa a tentativa da família de deixar o quarto mais confortável para Gregor continuar vivendo normalmente.</button>
-    <button data-correta="true">B) Simboliza a perda gradual da humanidade de Gregor e de sua ligação com a vida que tinha antes da metamorfose.</button>
-    <button>C) Demonstra que Gregor queria mudar completamente sua personalidade e esquecer o passado.</button>
-    <button>D) Mostra que a família acreditava que Gregor ainda voltaria ao normal rapidamente.</button>
-    <button>E) Representa a independência de Gregor em relação à família e aos seus objetos pessoais.</button>
-</div>
+            <div class="p14" id="p14">
+                
+                <p>14. Para nós, qual o significado da cena em que os móveis do quarto de Gregor começam a ser retirados?</p>
+                <button>A) Representa a tentativa da família de deixar o quarto mais confortável para Gregor continuar vivendo normalmente.</button>
+                <button data-correta="true">B) Simboliza a perda gradual da humanidade de Gregor e de sua ligação com a vida que tinha antes da metamorfose.</button>
+                <button>C) Demonstra que Gregor queria mudar completamente sua personalidade e esquecer o passado.</button>
+                <button>D) Mostra que a família acreditava que Gregor ainda voltaria ao normal rapidamente.</button>
+                <button>E) Representa a independência de Gregor em relação à família e aos seus objetos pessoais.</button>
+                
+            </div>
 
-<div class="p15" id="p15">
-    <p>15. No livro, Gregor era o principal responsável financeiro da sua família. Após sua transformação, passou a ser visto como um fardo e ignorado. Na nossa realidade social, quais grupos sociais são mais suscetíveis a serem considerados “fardos” e ignorados?</p>
-    <button>A) Idosos e pessoas com deficiência física ou mental, sendo somente esses grupos.</button>
-    <button>B) Pessoas em situação de rua e refugiadas, sendo somente esses grupos.</button>
-    <button>C) Elite econômica e líderes políticos.</button>
-    <button>D) Todas as alternativas estão corretas.</button>
-    <button data-correta="true">E) Nenhuma está correta, já que existem mais grupos sociais que sofrem os mesmos problemas.</button>
-</div>
+            <div class="p15" id="p15">
+                
+                <p>15. No livro, Gregor era o principal responsável financeiro da sua família. Após sua transformação, passou a ser visto como um fardo e ignorado. Na nossa realidade social, quais grupos sociais são mais suscetíveis a serem considerados “fardos” e ignorados?</p>
+                <button>A) Idosos e pessoas com deficiência física ou mental, sendo somente esses grupos.</button>
+                <button>B) Pessoas em situação de rua e refugiadas, sendo somente esses grupos.</button>
+                <button>C) Elite econômica e líderes políticos.</button>
+                <button>D) Todas as alternativas estão corretas.</button>
+                <button data-correta="true">E) Nenhuma está correta, já que existem mais grupos sociais que sofrem os mesmos problemas.</button>
+                
+            </div>
 
-<div class="p16" id="p16">
-    <p>16. Ao final da novela, Gregor Samsa infelizmente acaba morrendo. O que isso representa para a família e qual mensagem isso transmite ao leitor?</p>
-    <button>A) A morte de Gregor trouxe tristeza profunda para a família, que nunca conseguiu seguir em frente.</button>
-    <button>B) A morte de Gregor fez a família perceber seus erros e abandonar a busca por estabilidade financeira.</button>
-    <button data-correta="true">C) A morte de Gregor representa um alívio para a família, transmitindo ao leitor uma crítica à sociedade que passa a valorizar as pessoas apenas enquanto elas são úteis.</button>
-    <button>D) A morte de Gregor mostra que ele finalmente conseguiu ser ele mesmo novamente.</button>
-    <button>E) A morte de Gregor simboliza a vitória da união familiar sobre os problemas causados pela metamorfose.</button>
-</div>
+            <div class="p16" id="p16">
+                
+                <p>16. Ao final da novela, Gregor Samsa infelizmente acaba morrendo. O que isso representa para a família e qual mensagem isso transmite ao leitor?</p>
+                <button>A) A morte de Gregor trouxe tristeza profunda para a família, que nunca conseguiu seguir em frente.</button>
+                <button>B) A morte de Gregor fez a família perceber seus erros e abandonar a busca por estabilidade financeira.</button>
+                <button data-correta="true">C) A morte de Gregor representa um alívio para a família, transmitindo ao leitor uma crítica à sociedade que passa a valorizar as pessoas apenas enquanto elas são úteis.</button>
+                <button>D) A morte de Gregor mostra que ele finalmente conseguiu ser ele mesmo novamente.</button>
+                <button>E) A morte de Gregor simboliza a vitória da união familiar sobre os problemas causados pela metamorfose.</button>
+                
+            </div>
 
-<div class="p17" id="p17">
-    <p>17. Qual é o gênero textual principal desta obra e quais são as características dele?</p>
-    <button>A) Romance, caracteriza-se pela complexidade da trama e pelo desenvolvimento profundo das personagens.</button>
-    <button>B) Crônica, caracterizada por relatar fatos cotidianos de forma curta e humorística.</button>
-    <button data-correta="true">C) Novela, caracterizada por uma narrativa intermediária, com poucos personagens e conflito central desenvolvido de forma intensa.</button>
-    <button>D) Artigo de opinião, caracterizado pela defesa explícita de um ponto de vista sobre temas sociais.</button>
-    <button>E) Biografia, caracterizada pelo relato da vida de uma pessoa, organizando eventos em ordem cronológica.</button>
-</div>
+            <div class="p17" id="p17">
+                
+                <p>17. Qual é o gênero textual principal desta obra e quais são as características dele?</p>
+                <button>A) Romance, caracteriza-se pela complexidade da trama e pelo desenvolvimento profundo das personagens.</button>
+                <button>B) Crônica, caracterizada por relatar fatos cotidianos de forma curta e humorística.</button>
+                <button data-correta="true">C) Novela, caracterizada por uma narrativa intermediária, com poucos personagens e conflito central desenvolvido de forma intensa.</button>
+                <button>D) Artigo de opinião, caracterizado pela defesa explícita de um ponto de vista sobre temas sociais.</button>
+                <button>E) Biografia, caracterizada pelo relato da vida de uma pessoa, organizando eventos em ordem cronológica.</button>
+                
+            </div>
+            
         </div>
+        
         <script src="script.js"></script>
+        
     </body>
+    
 </html>
