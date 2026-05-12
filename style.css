@@ -1,0 +1,289 @@
+.galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.galeria img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 10px;
+}
+
+.galeria img:hover {
+    transform: scale(1.05);
+    border: 3px ridge white;
+}
+            
+@media (max-width: 768px) {
+    .galeria img {
+        width: 90px;
+        height: 90px;
+}
+
+.galeria {
+      gap: 8px;
+    }
+}
+
+.secao {
+      background-color: #f5efe6;
+      padding: 40px;
+      margin-top: 40px;
+}
+    
+.secao h2 {
+      color: #3a2a1a;
+} 
+    
+body {
+      background-color: #1a1a1a;
+      font-family: 'Playfair Display', serif;
+      padding:15px;
+      text-align: center;
+}
+    
+h1 {
+    color: #f5c842;
+}
+
+p {
+    color: #aaaaaa;
+}
+
+h2 {
+    color: #f5c842
+}
+
+a {
+    color:#f5c842
+}
+
+ .duvidas {
+    background-color: #f5efe6;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+.duvidas h2 {
+    color: #3a2a1a;
+} 
+
+.quiz {
+    display: none;
+}
+
+.p1 {
+    display: none;
+}
+
+.p2 {
+    display:none;
+}
+
+.p3 {
+    display:none;
+}
+
+.p4 {
+    display:none;
+}
+
+.p5 {
+    display:none;
+}
+
+.p6 {
+    display:none;
+}
+
+.p7 {
+    display:none;
+}
+
+.p8 {
+    display:none;
+}
+
+.p9 {
+    display:none;
+}
+
+.p10 {
+    display:none;
+}
+
+.p11 {
+    display:none;
+}
+
+.p12 {
+    display:none;
+}
+
+.p13 {
+    display:none;
+}
+
+.p14 {
+    display:none;
+}
+
+.p15{
+    display:none;
+}
+
+.p16 {
+    display:none;
+}
+
+.p17 {
+    display:none;
+}
+
+/* o medo de isso dar errado, Jesus, está na suas mãos meu pai*/
+#timer {
+    display: inline-block;
+    background: #2a2200;
+    border: 1px solid #5a4800;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: #f5c842;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.quiz {
+    max-width: 680px;
+    margin: 0 auto;
+}
+ 
+
+.p1, .p2, .p3, .p4, .p5, .p6, .p7, .p8,
+.p9, .p10, .p11, .p12, .p13, .p14, .p15,
+.p16, .p17 {
+    background: #242424;
+    border: 0.5px solid #333;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+}
+ 
+
+.p1 p, .p2 p, .p3 p, .p4 p,
+.p5 p, .p6 p, .p7 p, .p8 p,
+.p9 p, .p10 p, .p11 p, .p12 p,
+.p13 p, .p14 p, .p15 p, .p16 p,
+.p17 p {
+    color: #e8e0d0;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+ 
+
+.p1 button, .p2 button, .p3 button, .p4 button,
+.p5 button, .p6 button, .p7 button, .p8 button,
+.p9 button, .p10 button, .p11 button, .p12 button,
+.p13 button, .p14 button, .p15 button, .p16 button,
+.p17 button {
+    display: block;
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #cccccc;
+    font-size: 14px;
+    font-family: 'Playfair Display', serif;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+ 
+.p1 button:last-child, .p2 button:last-child, .p3 button:last-child,
+.p4 button:last-child, .p5 button:last-child, .p6 button:last-child,
+.p7 button:last-child, .p8 button:last-child, .p9 button:last-child,
+.p10 button:last-child, .p11 button:last-child, .p12 button:last-child,
+.p13 button:last-child, .p14 button:last-child, .p15 button:last-child,
+.p16 button:last-child, .p17 button:last-child {
+    margin-bottom: 0;
+}
+ 
+.p1 button:hover, .p2 button:hover, .p3 button:hover, .p4 button:hover,
+.p5 button:hover, .p6 button:hover, .p7 button:hover, .p8 button:hover,
+.p9 button:hover, .p10 button:hover, .p11 button:hover, .p12 button:hover,
+.p13 button:hover, .p14 button:hover, .p15 button:hover, .p16 button:hover,
+.p17 button:hover {
+    background: #2a2a2a;
+    border-color: rgba(245, 200, 66, 0.4);
+    color: #e8e0d0;
+}
+ 
+.p1 button:active, .p2 button:active, .p3 button:active, .p4 button:active,
+.p5 button:active, .p6 button:active, .p7 button:active, .p8 button:active,
+.p9 button:active, .p10 button:active, .p11 button:active, .p12 button:active,
+.p13 button:active, .p14 button:active, .p15 button:active, .p16 button:active,
+.p17 button:active {
+    transform: scale(0.99);
+}
+ 
+#iniciar {
+    background: #f5c842;
+    color: #1a1100;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+}
+ 
+#iniciar:hover { background: #e0b530; }
+#iniciar:active { transform: scale(0.98); }
+ 
+
+#nome {
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #e8e0d0;
+    font-size: 15px;
+    font-family: 'Playfair Display', serif;
+    width: 260px;
+    margin-right: 10px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+ 
+#nome:focus { border-color: #f5c842; }
+#nome::placeholder { color: #666; }
+ 
+
+@media (max-width: 768px) {
+    .p1 button, .p2 button, .p3 button, .p4 button,
+    .p5 button, .p6 button, .p7 button, .p8 button,
+    .p9 button, .p10 button, .p11 button, .p12 button,
+    .p13 button, .p14 button, .p15 button, .p16 button,
+    .p17 button {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+ 
+    #nome {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
